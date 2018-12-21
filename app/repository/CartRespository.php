@@ -32,7 +32,7 @@
                 static::update(
                     $itemId
                     , ['quantity' => $slot->quantity + $quantity]
-                    , 'item_id=' . $slot->item_id . ' AND session_id=' . $sessionId
+                    , 'item_id=' . $slot->item_id . ' AND session_id="' . $sessionId . '"'
                 );
             
                 return $itemId;

@@ -5,80 +5,41 @@
     //declare(strict_types=1);
     
     /**
-     * 
-     * 
-     */
-    
-    session_start();
-    
-    if (!isset($_SESSION['id'])) {
-        $_SESSION['id'] = md5(time() . rand(1, 1000));
-        $_SESSION['pocket'] = 100;
-    }
-    
-    /**
      * This is in sustitution a Router
      */
     
     $url = explode('/', $_SERVER['REQUEST_URI']);
     $urlAction = $url[1];
+    
+    spl_autoload_register(function ($clase) {
+        require 'app/controller/' . $clase . '.php';
+    });
      
     switch($urlAction)
     {
         case '':
-            include_once 'repository/ItemRepository.php';
-            include_once 'repository/CartRespository.php';
-            
-            $items = ItemRepository::getWithRate($_SESSION['id']);
-            $slots = CartRepository::getSlots($_SESSION['id']);
-            $pocket = $_SESSION['pocket'];
-            
-            include 'views/store.php';
+            HomeController::index();
         break;
         
         case 'add':
-            include_once 'repository/CartRespository.php';
-            
-            CartRepository::addItem(
-                $_SESSION['id']
-                , $url[2]
-                , $url[3]
-            );
+            CartController::add($url[2], $url[3]);
         break;
         
         case 'remove':
-            include_once 'repository/CartRespository.php';
-            
-            CartRepository::removeStock($_SESSION['id'], $url[2]);
+            CartController::remove($url[2]);
         break;
         
         case 'rate':
-            include_once 'repository/RateRepository.php';
-            
-            echo RateRepository::add(
-                $_SESSION['id']
-                , $url[2]
-                , $url[3]
-            );
+            ItemController::rate($url[2], $url[3]);
         break;
         
         case 'checkout':
-            include_once 'repository/CartRespository.php';
-            
-            $slots = CartRepository::getSlots($_SESSION['id']);
-            $total = CartRepository::getTotal($_SESSION['id']);
-            $pocket = $_SESSION['pocket'];
-            
-            include 'views/checkout.php';
+            CheckoutController::index();
         break;
         
         case 'pay':
-            include_once 'repository/SellRepository.php';
-            
-            $total = SellRepository::pay($_SESSION['id'], $_SESSION['pocket'], $_POST['method']);
-            $_SESSION['pocket'] -= $total;
-            
-            echo $total;
+            //$_POST['method'] -> Payment Method
+            CheckoutController::pay($_POST['method']);
         break;
         
         default:
