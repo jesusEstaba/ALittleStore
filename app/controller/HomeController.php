@@ -13,6 +13,6 @@
             $slots = CartRepository::getSlots(SessionService::get('id'));
             $pocket = SessionService::get('pocket');
             
-            include __DIR__ .'/../../views/store.php';
+            view('store', compact('items', 'slots', 'pocket'));
         }
     }

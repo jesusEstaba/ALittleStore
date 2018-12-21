@@ -1,6 +1,4 @@
-<?php include '_head.php'; ?>
-        
-        <div class="main">
+	<div class="main">
 	        <h1>A Litte Store</h1>
 	        <div class="items-shop">
 	           <?php foreach($items as $item): ?>
@@ -59,7 +57,4 @@
 	            </tbody>
 	        </table>
 	        <a href="checkout" id="checkout">CHECKOUT</a>
-	    </div>
- 
-    
-<?php include '_footer.php'; ?>
+	</div>

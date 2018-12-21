@@ -14,6 +14,13 @@
     spl_autoload_register(function ($clase) {
         require 'app/controller/' . $clase . '.php';
     });
+    
+    function view($name, $data = []) {
+        extract($data);
+        require('views/_head.php');
+        require('views/' . $name . '.php');
+        require('views/_footer.php');
+    }
      
     switch($urlAction)
     {

@@ -1,6 +1,4 @@
-<?php include '_head.php'; ?>
-        
-        <div class="main">
+	<div class="main">
 	        <a href="/">Go to Store</a>
 	        <h3>In Pocket: $<?=number_format($_SESSION['pocket'], 2)?></h3>
 	        <hr>
@@ -42,7 +40,3 @@
 	        </form>
 
 	    </div>
-
-
-    
-<?php include '_footer.php'; ?>

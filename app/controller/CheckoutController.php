@@ -13,7 +13,7 @@
             $total = CartRepository::getTotal(SessionService::get('id'));
             $pocket = SessionService::get('pocket');
             
-            include __DIR__ .'/../../views/checkout.php';
+            view('checkout', compact('slots', 'total', 'pocket'));
         }
         
         public static function pay($paymentMethod)
