@@ -49,7 +49,7 @@
         {
             static::destroy(
                 'item_id=' . $itemId 
-                . ' AND session_id=`' . $sessionId . '`'
+                . ' AND session_id="' . $sessionId . '"'
             );
         }
         
