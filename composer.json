@@ -1,0 +1,19 @@
+{
+    "name": "jesusestaba/alittlephpstore",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jesus Estaba",
+            "email": "jeec.estaba@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require-dev": {
+        "phpunit/phpunit": "^6.5"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
