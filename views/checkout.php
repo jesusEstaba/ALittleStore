@@ -1,6 +1,6 @@
 	<div class="main">
 	        <a href="/">Go to Store</a>
-	        <h3>In Pocket: $<?=number_format($_SESSION['pocket'], 2)?></h3>
+	        <h3>In Pocket: $<?=number_format($pocket, 2)?></h3>
 	        <hr>
 	        <h3>In Cart</h3>
 	        <table>
