@@ -27,6 +27,11 @@ class ItemUseCaseTest extends TestCase
         
         $this->assertEquals($expectedResult, $this->item->getItemsWithRate());
     }
+    
+    function testRateToItem()
+    {
+        $this->assertEquals(5, $this->item->rate('1', 5));
+    }
 }
 
 class FakeItemRepository
@@ -43,15 +48,22 @@ class FakeItemRepository
 
 class FakeRateRepository
 {
+    static $rate;
+    
     static function avg()
     {
         return [
-            (object)["average"=>3]
+            (object)["average"=> static::$rate ? static::$rate : 3]
         ];
     }
     
     static function getWhere()
     {
         return [];
+    }
+
+    static function save($data)
+    {
+        static::$rate = $data['rate'];
     }
 }
