@@ -20,6 +20,27 @@ class PayUseCaseTest extends TestCase
         );
     }
     
+    function testSellWhenYouHaveSufficientFunds()
+    {
+        $this->cart->setTotal(10);
+        
+        $this->assertEquals(10, $this->pay->sell(''));
+    }
+    
+    function testSellWhenYouHaveExactFunds()
+    {
+        $this->cart->setTotal(100);
+        
+        $this->assertEquals(100, $this->pay->sell(''));
+    }
+    
+    function testSellWhenYouDontHaveSufficientFunds()
+    {
+        $this->cart->setTotal(101);
+        
+        $this->assertEquals(0, $this->pay->sell(''));
+    }
+    
     function testSellWhenYouHaveSufficientFundsWithUps()
     {
         $this->cart->setTotal(10);
