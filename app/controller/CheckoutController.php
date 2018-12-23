@@ -6,6 +6,7 @@
     include_once __DIR__ .'/../repository/SellRepository.php';
     
     include_once __DIR__ .'/../useCase/CartUseCase.php';
+    include_once __DIR__ .'/../useCase/PayUseCase.php';
     
     class CheckoutController
     {
@@ -31,35 +32,13 @@
         
         public static function pay($paymentMethod)
         {
-            $sessionId=SessionService::get('id'); 
-            $pocket = SessionService::get('pocket');
-            $method=$paymentMethod;
+            $pay = new PayUseCase(
+                SellRepository::class,
+                SessionService::class,
+                static::getCart()
+            );
             
-            $cart = static::getCart();
-            
-            $total = $cart->getTotal();
-            
-            if ($method==='ups') {
-                $total += 5;
-            }
-            
-            if ($total > $pocket)
-            {
-                $total = 0;
-            }
-            
-            
-            SellRepository::save([
-                'amount' => $total,
-                'session_id' => $sessionId,
-                'method' => $method,
-            ]);
-            
-            $cart->clear();
-            
-            SessionService::set('pocket', $pocket - $total);
-            
-            echo $total;
+            echo $pay->sell($paymentMethod);
         }
     }
     
